@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:StudentList.ViewModels"
+             x:DataType="viewModels:StudentListPageViewModel"
+             x:Class="StudentList.Views.StudentListPage"
+             Title="Student List">
+    <VerticalStackLayout Margin="10">
+        <Label Text="Student List" FontSize="28" />
+        <Button Text="Add Student" 
+                HorizontalOptions="EndAndExpand"
+                Command="{Binding AddUpdateStudentCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>
