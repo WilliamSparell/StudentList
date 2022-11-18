@@ -12,12 +12,7 @@ namespace StudentList.Services
     {
         private SQLiteAsyncConnection _dbConnection;
 
-        public StudentService()
-        {
-            SetUpDB();
-        }
-
-        private async void SetUpDB()
+        private async Task SetUpDB()
         {
             if (_dbConnection is null)
             {
@@ -27,25 +22,29 @@ namespace StudentList.Services
             }
         }
 
-        public Task<int> AddStudent(StudentModel studentModel)
+        public async Task<int> AddStudent(StudentModel studentModel)
         {
-            return _dbConnection.InsertAsync(studentModel);
+            await SetUpDB();
+            return await _dbConnection.InsertAsync(studentModel);
         }
 
-        public Task<int> DeleteStudent(StudentModel studentModel)
+        public async Task<int> DeleteStudent(StudentModel studentModel)
         {
-            return _dbConnection.DeleteAsync(studentModel);
+            await SetUpDB();
+            return await _dbConnection.DeleteAsync(studentModel);
         }
 
         public async Task<List<StudentModel>> GetStudentList()
         {
+            await SetUpDB();
             var studentList = await _dbConnection.Table<StudentModel>().ToListAsync();
             return studentList;
         }
 
-        public Task<int> UpdateStudent(StudentModel studentModel)
+        public async Task<int> UpdateStudent(StudentModel studentModel)
         {
-            return _dbConnection.UpdateAsync(studentModel);
+            await SetUpDB();
+            return await _dbConnection.UpdateAsync(studentModel);
         }
     }
 }

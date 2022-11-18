@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:StudentList.Models"
              xmlns:viewModels="clr-namespace:StudentList.ViewModels"
              x:DataType="viewModels:StudentListPageViewModel"
              x:Class="StudentList.Views.StudentListPage"
@@ -10,5 +11,30 @@
         <Button Text="Add Student" 
                 HorizontalOptions="EndAndExpand"
                 Command="{Binding AddUpdateStudentCommand}"/>
+
+        <CollectionView ItemsSource="{Binding Students}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:StudentModel">
+                    <Frame Margin="10"
+                           Padding="10">
+                        <StackLayout>
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding FirstName}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                                <Label Text="{Binding LastName}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding Email}"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:StudentListPageViewModel}}, Path=DisplayActionCommand}" 
+                                                  CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
